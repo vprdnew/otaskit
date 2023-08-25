@@ -25,14 +25,17 @@
                         </div>
                     @endif
                     @foreach ($tasks as $task)
-                    <div class="card">
-                        <div class="card-text">
-                        <h3>{{$task->title}}</h3>({{$task->Status}})
-                        <p>{{$task->description}}
-                        </p>
-                        <a class="nav-link" href="{{ route('task.edit',$task->id) }}">{{ __('Edit') }}</a>
+                   
+
+                    <div class="card" style="width: 16rem;float: left;margin: 5px;">
+                        <div class="card-body">
+                          <h5 class="card-title">{{$task->title}}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">{{$task->Status}}</h6>
+                          <p class="card-text">{{$task->description}}</p>
+                          <a href="{{ route('task.edit',$task->id) }}" class="card-link">{{ __('Edit') }}</a>
+                          <a href="#" class="card-link">Assign</a>
                         </div>
-                    </div>
+                      </div>
                     
                         
                     @endforeach
