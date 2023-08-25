@@ -10,5 +10,6 @@ use Laravel\Sanctum\HasApiTokens;
 class Employee extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
-    
+
+    protected $table = 'employees';
 }

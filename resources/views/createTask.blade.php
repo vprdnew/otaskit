@@ -24,6 +24,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    
                     <form name="taskCreate" id="taskCreate" action="{{route('task.store') }}" method="POST">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group">
