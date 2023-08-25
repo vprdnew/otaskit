@@ -8,15 +8,35 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+
+    public $status= ['Unassigned','Assigned','InProgress','Done'];
      public function __construct()
     {
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::with('assignee')->get();
-        return view('task',compact('tasks'));
+        $filterAssignee = $request->assignee;
+        $filterStatus = $request->status;
+        $tasks = Task::with('assignee');
+        if($request->assignee){
+            if($request->assignee != 0 ){
+                $tasks = $tasks->where('employee_id',$request->assignee);       
+            }
+        }
+        if($request->status){
+            if($request->status != 'all' ){
+                
+                    $tasks = $tasks->where('Status',$request->status);       
+                
+            }
+        }
+
+        $tasks = $tasks->get();
+        $employees = Employee::get();
+        $statuses = $this->status;
+        return view('task',compact('tasks','employees','statuses','filterAssignee','filterStatus'));
 
     }
 
