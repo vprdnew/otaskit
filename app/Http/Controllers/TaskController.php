@@ -15,7 +15,7 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks = Task::get();
+        $tasks = Task::with('assignee')->get();
         return view('task',compact('tasks'));
 
     }
@@ -54,5 +54,34 @@ class TaskController extends Controller
         $request->validate([
             'assignee' =>'required'
         ]);
+        $task = Task::findOrFail($taskId);
+        if($task->Status != 'InProgress'){
+            $task->employee_id = $request->assignee;
+            $task->Status = 'Assigned';
+        }
+        
+        $task->save();
+        return redirect()->route('task.index');
     }
+
+    public function startTask($taskId){
+        $task = Task::findOrFail($taskId);
+        if($task->Status === 'Assigned'){
+            $task->Status ='InProgress';
+        }
+        $task->save();
+        return redirect()->route('task.index');
+    }
+
+    public function finishTask($taskId){
+        $task = Task::findOrFail($taskId);
+        
+        if($task->Status === 'InProgress' && round(abs(time() - strtotime($task->updated_at))/60,2) > 5){
+            $task->Status ='Done';
+        }
+        $task->save();
+        return redirect()->route('task.index');
+    }
+
+    
 }

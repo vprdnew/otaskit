@@ -25,15 +25,29 @@
                         </div>
                     @endif
                     @foreach ($tasks as $task)
-                   
-
                     <div class="card" style="width: 16rem;float: left;margin: 5px;">
                         <div class="card-body">
                           <h5 class="card-title">{{$task->title}}</h5>
-                          <h6 class="card-subtitle mb-2 text-muted">{{$task->Status}}</h6>
+                          <h6 class="card-subtitle mb-2 text-muted">{{$task->Status}}
+                            @if ( $task->Status === 'Assigned')
+                            <span>to {{$task->assignee->name}}</span>
+                            @endif    
+                        </h6>
                           <p class="card-text">{{$task->description}}</p>
                           <a href="{{ route('task.edit',$task->id) }}" class="card-link">{{ __('Edit') }}</a>
-                          <a href="{{ route('assign',$task->id) }}" class="card-link">Assign</a>
+                          <a href="{{ route('assign',$task->id) }}" class="card-link">{{ $task->Status === 'Assigned'?'Change Assigne':'Assign'}}</a>
+
+                        </div>
+                        <div class="card-footer text-center">
+                            
+                            @if ($task->Status === 'InProgress')
+                                @if (round(abs(time() - strtotime($task->updated_at))/60,2) > 5)
+                                    <a class=" btn btn-success col-md-12" href="{{ route('finishTask',$task->id) }}">{{ __('Done') }}</a>
+                                @endif
+                                @else
+                                <a class=" btn btn-info col-md-12" href="{{ route('startTask',$task->id) }}">{{ __('Start Task') }}</a>
+                            @endif
+                            
                         </div>
                       </div>
                     

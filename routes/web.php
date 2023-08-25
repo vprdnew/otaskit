@@ -28,3 +28,5 @@ Route::resource('task',TaskController::class);
 Route::resource('employee',EmployeeController::class);
 Route::get('/task/{id}/assign', [App\Http\Controllers\TaskController::class, 'assign'])->name('assign');
 Route::put('/task/{id}/assign', [App\Http\Controllers\TaskController::class, 'assignUpdate'])->name('assign');
+Route::get('/task/{id}/start', [App\Http\Controllers\TaskController::class, 'startTask'])->name('startTask');
+Route::get('/task/{id}/finish', [App\Http\Controllers\TaskController::class, 'finishTask'])->name('finishTask');
