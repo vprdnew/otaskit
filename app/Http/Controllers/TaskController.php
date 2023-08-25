@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -41,5 +42,17 @@ class TaskController extends Controller
         $task = Task::findOrFail($taskId);
             return view('editTask');
         
+    }
+
+    public function assign($taskId){
+        $task = Task::findOrFail($taskId);
+        $employees = Employee::where('Status', 'Active')->get();
+        return view('assignTask',compact('task','employees'));
+    }
+
+    public function assignUpdate(Request $request,$taskId){
+        $request->validate([
+            'assignee' =>'required'
+        ]);
     }
 }

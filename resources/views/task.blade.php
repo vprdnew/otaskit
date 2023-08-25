@@ -33,7 +33,7 @@
                           <h6 class="card-subtitle mb-2 text-muted">{{$task->Status}}</h6>
                           <p class="card-text">{{$task->description}}</p>
                           <a href="{{ route('task.edit',$task->id) }}" class="card-link">{{ __('Edit') }}</a>
-                          <a href="#" class="card-link">Assign</a>
+                          <a href="{{ route('assign',$task->id) }}" class="card-link">Assign</a>
                         </div>
                       </div>
                     

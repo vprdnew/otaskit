@@ -12,4 +12,9 @@ class Task extends Model
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'task';
+
+    public function assignee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id');
+    }
 }

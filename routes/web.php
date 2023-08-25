@@ -26,3 +26,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('task',TaskController::class);
 Route::resource('employee',EmployeeController::class);
+Route::get('/task/{id}/assign', [App\Http\Controllers\TaskController::class, 'assign'])->name('assign');
+Route::put('/task/{id}/assign', [App\Http\Controllers\TaskController::class, 'assignUpdate'])->name('assign');
