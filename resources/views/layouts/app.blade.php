@@ -51,6 +51,8 @@
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('task.index') }}">{{ __('Tasks') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('employee.index') }}">{{ __('Employee') }}</a>
                             </li>
                             <li class="nav-item dropdown">
